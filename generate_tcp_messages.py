@@ -8,7 +8,8 @@ states = ['AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
           'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
           'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY']
 
-company = ["Google", "Facebook", "Instagram", "Spotify", "Amazon", "Netflix", "Dropbox", "Reddit"]
+company = ["Google", "Facebook", "Instagram",
+           "Spotify", "Amazon", "Netflix", "Dropbox", "Reddit"]
 
 host = 'localhost'
 port = 9999
@@ -24,7 +25,8 @@ try:
                 st_idx = random.randint(0, 50)
                 cmp_idx = random.randint(0, 7)
                 print(f"{states[st_idx]} {company[cmp_idx]}")
-                conn.send(bytes(f"{states[st_idx]} {company[cmp_idx]}\n", "utf-8"))
+                conn.send(
+                    bytes(f"{states[st_idx]} {company[cmp_idx]}\n", "utf-8"))
                 time.sleep(30)
             conn.close()
         except socket.error as e:
