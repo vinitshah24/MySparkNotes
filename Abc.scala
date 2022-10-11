@@ -43,9 +43,4 @@ object Abc {
     import org.apache.spark.storage.StorageLevel
     val dfPersist = df.persist(StorageLevel.MEMORY_ONLY)
     dfPersist.show(false)
-
-    dept = [("Finance",10),("Marketing",20),("Sales",30),("IT",40)]
-    rdd  = spark.sparkContext.parallelize(dept)
-    df   = rdd.toDF()
-    rdd  = df.rdd
 }
