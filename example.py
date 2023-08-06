@@ -30,9 +30,12 @@ rdd = df.rdd
 rdd.persist(pyspark.StorageLevel.MEMORY_AND_DISK_2)
 rdd.unpersist()
 
+# ----------------------------------------------------------
+
 dept = [("Finance",10),("Marketing",20),("Sales",30),("IT",40)]
 rdd  = spark.sparkContext.parallelize(dept)
 df   = rdd.toDF()
+df   = spark.createDataFrame(rdd, ["department","id"])
 
 # ----------------------------------------------------------
 
