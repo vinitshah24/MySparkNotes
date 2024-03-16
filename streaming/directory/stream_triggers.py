@@ -20,7 +20,8 @@ schema = StructType([
     StructField("Volume", DoubleType(), True)
 ])
 
-spark.udf.register("get_stock_name_udf", lambda path: os.path.basename(path).split("_")[0])
+spark.udf.register("get_stock_name_udf",
+                   lambda path: os.path.basename(path).split("_")[0])
 
 df = spark \
     .readStream \
@@ -42,12 +43,12 @@ result_df = df \
 
 # Checkpointing
 result_df.writeStream \
-      .outputMode("complete") \
-      .format("console") \
-      .option("truncate", False) \
-      .option("checkpointLocation", CHECKPOINT_DIR) \
-      .start() \
-      .awaitTermination()
+    .outputMode("complete") \
+    .format("console") \
+    .option("truncate", False) \
+    .option("checkpointLocation", CHECKPOINT_DIR) \
+    .start() \
+    .awaitTermination()
 
 """
 Default:

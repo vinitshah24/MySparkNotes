@@ -18,7 +18,8 @@ schema = StructType([
     StructField("Volume", DoubleType(), True)
 ])
 
-spark.udf.register("get_stock_name_udf", lambda path: os.path.basename(path).split("_")[0])
+spark.udf.register("get_stock_name_udf",
+                   lambda path: os.path.basename(path).split("_")[0])
 
 # Create Streaming DataFrame by reading data from directory.
 # This will read maximum of 2 files per mini batch. However, it can read less than 2 files.
