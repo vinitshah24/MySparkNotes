@@ -12,7 +12,7 @@ company = ["Google", "Facebook", "Instagram",
            "Spotify", "Amazon", "Netflix", "Dropbox", "Reddit"]
 
 host = 'localhost'
-port = 9999
+port = 9998
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print("Binding host and port...")
 s.bind((host, port))

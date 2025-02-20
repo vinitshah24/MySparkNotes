@@ -50,30 +50,30 @@ result_df.writeStream \
     .start() \
     .awaitTermination()
 
-"""
-Default:
-    Executes a micro-batch as soon as the previous finishes.
 
-Fixed interval micro-batches:
-    Specifies the interval when the micro-batches will execute.
-    E.g., 1 minute, 30 seconds or 1 hour, etc. If the processing time of the previous batch is more than the
-    specified interval, the next batch will be executed immediately.
-    E.g., If we set the processing time as 1 minute, if the micro-batch takes 35 seconds,
-    it will wait for more than 25 seconds before triggering the next batch.
-    If the micro-batch takes 70 secs, then next will be executed immediately.
+# Default:
+#     Executes a micro-batch as soon as the previous finishes.
 
-One-time micro-batch:
-    Executes only one micro-batch to process all available data and then stops.
-    With a once trigger "trigger(Trigger.Once())", our query will execute a single micro-batch.
-    It will process all available data and then stop the application.
-    This trigger is useful when you would like to spin up a cluster periodically, process all available data,
-    and then shut down the cluster. This may lead to considerable cost savings.
+# Fixed interval micro-batches:
+#     Specifies the interval when the micro-batches will execute.
+#     E.g., 1 minute, 30 seconds or 1 hour, etc. If the processing time of the previous batch is more than the
+#     specified interval, the next batch will be executed immediately.
+#     E.g., If we set the processing time as 1 minute, if the micro-batch takes 35 seconds,
+#     it will wait for more than 25 seconds before triggering the next batch.
+#     If the micro-batch takes 70 secs, then next will be executed immediately.
 
-By default, if we don't specify any trigger, our query will execute in micro-batch mode.
-The default trigger executes the next batch as soon as the previous one finishes.
-In our checkpoint example, we used the default trigger since we hadn't specified another.
-Here we set 1 minute for each micro-batch. And if you observe the interval for batch-01 and batch-02, likely 1 minute.
-"""
+# One-time micro-batch:
+#     Executes only one micro-batch to process all available data and then stops.
+#     With a once trigger "trigger(Trigger.Once())", our query will execute a single micro-batch.
+#     It will process all available data and then stop the application.
+#     This trigger is useful when you would like to spin up a cluster periodically, process all available data,
+#     and then shut down the cluster. This may lead to considerable cost savings.
+
+# By default, if we don't specify any trigger, our query will execute in micro-batch mode.
+# The default trigger executes the next batch as soon as the previous one finishes.
+# In our checkpoint example, we used the default trigger since we hadn't specified another.
+# Here we set 1 minute for each micro-batch. And if you observe the interval for batch-01 and batch-02, likely 1 minute.
+
 
 # # Fixed interval micro-batches
 # result_df.writeStream \

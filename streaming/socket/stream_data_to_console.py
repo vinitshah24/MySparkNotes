@@ -1,5 +1,20 @@
-import sys
-import os
+"""
+Complete Mode:
+The entire updated Result Table will be written to the external storage.
+It is up to the storage connector to decide how to handle writing of the entire table.
+
+Append Mode:
+Only the new rows appended in the Result Table since the last trigger will be written to the external storage.
+This is applicable only on the queries where existing rows in the Result Table are not expected to change.
+
+Update Mode:
+Only the rows that were updated in the Result Table since the last trigger will be written to the external storage.
+Note that this is different from the Complete Mode in that this mode only outputs the rows that have changed since
+the last trigger. If the query doesn't contain aggregations, it will be equivalent to Append mode.
+"""
+
+# import sys
+# import os
 
 # os.environ.get('JAVA_HOME')
 # import findspark
@@ -16,7 +31,7 @@ df = spark \
     .readStream \
     .format("socket") \
     .option("host", "localhost") \
-    .option("port", "9999") \
+    .option("port", "9998") \
     .load()
 
 print(df.isStreaming)
@@ -28,10 +43,11 @@ query = wc_df \
     .writeStream \
     .outputMode("complete") \
     .format("console") \
-    .start()
+    .start() \
+    .awaitTermination()
 
 # Run to stop the streaming
-query.stop()
+# query.stop()
 
 
 # wc_df = df.select(explode(split(df.value, " ")).alias("word"))
@@ -44,18 +60,3 @@ query.stop()
 
 # query.awaitTermination()
 # query.stop()
-
-"""
-Complete Mode:
-The entire updated Result Table will be written to the external storage.
-It is up to the storage connector to decide how to handle writing of the entire table.
-
-Append Mode:
-Only the new rows appended in the Result Table since the last trigger will be written to the external storage.
-This is applicable only on the queries where existing rows in the Result Table are not expected to change.
-
-Update Mode:
-Only the rows that were updated in the Result Table since the last trigger will be written to the external storage.
-Note that this is different from the Complete Mode in that this mode only outputs the rows that have changed since
-the last trigger. If the query doesn't contain aggregations, it will be equivalent to Append mode.
-"""
